@@ -21,8 +21,11 @@ class BowlingGame:
 
     def calculate_score(self) -> int:
         sum_score = 0
-        for i in range(0, len(self.frames)):
-            sum_score += self.frames[i].score()
+        for element, i in enumerate(self.frames):
+            if i.is_spare() and element != len(self.frames)-1:
+                sum_score += i.score() + self.frames[element+1].get_first_throw()
+            else:
+                sum_score += i.score()
 
         return sum_score
 
