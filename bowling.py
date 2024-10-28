@@ -23,7 +23,16 @@ class BowlingGame:
         sum_score = 0
         for element, i in enumerate(self.frames):
             if i.is_strike() and element != len(self.frames)-1:
-                sum_score += i.score() + self.frames[element+1].get_first_throw() + self.frames[element+1].get_second_throw()
+                sum_score += i.score()
+                j = element + 1
+                while self.frames[j].is_strike() and j < len(self.frames):
+                    sum_score += self.frames[j].get_first_throw() + self.frames[j].get_second_throw()
+                    j += 1
+                if j == element + 1:
+                    sum_score += self.frames[j].get_first_throw() + self.frames[j].get_second_throw()
+                elif j != element + 1 and j < len(self.frames):
+                    sum_score += self.frames[j].get_first_throw()
+
             elif i.is_spare() and element != len(self.frames)-1:
                 sum_score += i.score() + self.frames[element+1].get_first_throw()
             else:
