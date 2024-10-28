@@ -10,6 +10,8 @@ class BowlingGame:
         self.frames = []
     
     def add_frame(self, frame: Frame) -> None:
+        if len(self.frames) >= 10:
+            raise BowlingError
         self.frames.append(frame)
 
     def get_frame_at(self, i: int) -> Frame:
@@ -18,7 +20,11 @@ class BowlingGame:
         return self.frames[i]
 
     def calculate_score(self) -> int:
-        pass
+        sum_score = 0
+        for i in self.frames:
+            sum_score += i.score
+
+        return sum_score
 
     def set_first_bonus_throw(self, bonus_throw: int) -> None:
         pass
