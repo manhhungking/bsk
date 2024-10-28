@@ -8,6 +8,8 @@ class BowlingGame:
 
     def __init__(self):
         self.frames = []
+        self.bonus_first = 0
+        self.bonus_second = 0
     
     def add_frame(self, frame: Frame) -> None:
         if len(self.frames) >= 10:
@@ -22,8 +24,11 @@ class BowlingGame:
     def calculate_score(self) -> int:
         sum_score = 0
         for element, i in enumerate(self.frames):
-            if i.is_strike() and element != len(self.frames)-1:
+            if i.is_strike():
                 sum_score += i.score()
+                if element == len(self.frames)-1:
+                    sum_score += self.bonus_first + self.bonus_second
+                    continue
                 j = element + 1
                 while self.frames[j].is_strike() and j < len(self.frames):
                     sum_score += self.frames[j].get_first_throw() + self.frames[j].get_second_throw()
@@ -41,7 +46,7 @@ class BowlingGame:
         return sum_score
 
     def set_first_bonus_throw(self, bonus_throw: int) -> None:
-        pass
+        self.bonus_first = bonus_throw
 
     def set_second_bonus_throw(self, bonus_throw: int) -> None:
-        pass
+        self.bonus_second = bonus_throw
