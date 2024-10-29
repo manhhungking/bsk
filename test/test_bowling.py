@@ -151,3 +151,18 @@ class TestBowlingGame(unittest.TestCase):
         self.game.set_first_bonus_throw(7)
         self.game.set_second_bonus_throw(2)
         self.assertEqual(92, self.game.calculate_score())
+
+    def test_best_score(self):
+        self.game.add_frame(Frame(10, 0))
+        self.game.add_frame(Frame(10, 0))
+        self.game.add_frame(Frame(10, 0))
+        self.game.add_frame(Frame(10, 0))
+        self.game.add_frame(Frame(10, 0))
+        self.game.add_frame(Frame(10, 0))
+        self.game.add_frame(Frame(10, 0))
+        self.game.add_frame(Frame(10, 0))
+        self.game.add_frame(Frame(10, 0))
+        self.game.add_frame(Frame(10, 0))
+        self.game.set_first_bonus_throw(10)
+        self.game.set_second_bonus_throw(10)
+        self.assertEqual(300, self.game.calculate_score())

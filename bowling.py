@@ -28,15 +28,18 @@ class BowlingGame:
                 sum_score += i.score()
                 if element == len(self.frames)-1:
                     sum_score += self.bonus_first + self.bonus_second
-                    continue
+                    break
                 j = element + 1
-                while self.frames[j].is_strike() and j < len(self.frames):
+                while j < len(self.frames) and self.frames[j].is_strike():
                     sum_score += self.frames[j].get_first_throw() + self.frames[j].get_second_throw()
                     j += 1
-                if j == element + 1:
+                    break
+                if j == element + 1 and j < len(self.frames):
                     sum_score += self.frames[j].get_first_throw() + self.frames[j].get_second_throw()
                 elif j != element + 1 and j < len(self.frames):
                     sum_score += self.frames[j].get_first_throw()
+                elif j == len(self.frames):
+                    sum_score += self.frames[j % int(len(self.frames))].get_first_throw()
 
             elif i.is_spare() and element != len(self.frames)-1:
                 sum_score += i.score() + self.frames[element+1].get_first_throw()
